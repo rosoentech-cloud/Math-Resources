@@ -13,13 +13,13 @@ Keep `.nojekyll` in place. It tells GitHub Pages to serve every file as uploaded
 
 ## 2. Add or replace a PPTX file
 
-1. Open the `downloads` folder in GitHub and select **Add file > Upload files**. Use a file name with no spaces, for example `GED_Math_Fractions_without_notes.pptx`.
+1. Open the `downloads` folder in GitHub and select **Add file > Upload files**. Use a file name with no spaces, for example `GED_Math_Fractions.pptx`.
 2. Open `index.html`, find the **RESOURCE CONFIGURATION** block, and add an entry to the `versions` list of the lesson it belongs to. Or add a new lesson at the end of `lessons`:
 
 ```
 {
   "label": "Zoom edition",
-  "file": "downloads/GED_Math_Fractions_without_notes.pptx",
+  "file": "downloads/GED_Math_Fractions.pptx",
   "slides": 12,
   "speakerNotes": "without",
   "available": true
@@ -66,9 +66,9 @@ Set `"available": false` on that version. Set it back to `true` to show it again
 
 Use one of these values for `speakerNotes`:
 
-- `"without"` shows *Without speaker notes*
-- `"with"` shows *With speaker notes*
-- `"selected"` shows *Speaker notes on selected slides*
+- `"with"` shows the label *With speaker notes* and a *Download with speaker notes* button
+- `"selected"` shows the label *Speaker notes on selected slides* and a *Download with some speaker notes* button
+- `"without"`, or leaving `speakerNotes` out, shows no label and a plain *Download PPTX* button
 
 ## Things to know
 

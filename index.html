@@ -235,7 +235,6 @@
     }
     .chip-with { background: var(--sky-tint); color: var(--sky-ink); }
     .chip-selected { background: var(--yellow-tint); color: #5A4300; }
-    .chip-unstated { background: #F0EEF3; color: var(--muted); }
 
     .btn {
       display: inline-flex;
@@ -339,7 +338,8 @@
 
        Lesson versions
          file: path to the PPTX, for example downloads/Example_without_notes.pptx
-         speakerNotes: "without", "with", or "selected"
+         speakerNotes: "with" or "selected" shows a notes label.
+                       Use "without" or leave it out for a plain Download PPTX button.
          available: false hides a version without deleting it
          label: optional name, shown when a lesson has more than one version
        ========================================================== */
@@ -458,11 +458,10 @@
       var DEFAULT_PENDING = 'Recording coming Thursday';
 
       var NOTE_LABELS = {
-        without:  { chip: 'Without speaker notes',              button: 'Download without speaker notes',   chipClass: '' },
         'with':   { chip: 'With speaker notes',                 button: 'Download with speaker notes',      chipClass: 'chip-with' },
         selected: { chip: 'Speaker notes on selected slides',   button: 'Download with some speaker notes', chipClass: 'chip-selected' }
       };
-      var UNSTATED = { chip: 'Speaker notes not stated', button: 'Download PPTX', chipClass: 'chip-unstated' };
+      var PLAIN = { chip: '', button: 'Download PPTX', chipClass: '' };
 
       var DOWNLOAD_ICON = '<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>';
 
@@ -542,13 +541,13 @@
 
         var entries = [];
         versions.forEach(function (v) {
-          var labels = NOTE_LABELS[v.speakerNotes] || UNSTATED;
+          var labels = NOTE_LABELS[v.speakerNotes] || PLAIN;
           var block = el('div', 'version');
           if (versions.length > 1 && v.label) block.appendChild(el('p', 'version-label', v.label));
 
           var meta = el('p', 'meta', metaText(v.slides, v.size));
           block.appendChild(meta);
-          block.appendChild(el('span', 'chip ' + labels.chipClass, labels.chip));
+          if (labels.chip) block.appendChild(el('span', 'chip ' + labels.chipClass, labels.chip));
 
           var button = el('a', 'btn');
           button.href = v.file;
