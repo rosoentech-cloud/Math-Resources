@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Rosoen student resources</title>
+  <meta name="description" content="Download GED math lesson slides and find session recordings from Rosoen.">
+  <meta name="color-scheme" content="light">
+  <style>
+    :root {
+      --purple: #4A2377;
+      --purple-deep: #301650;
+      --purple-hover: #5C2F94;
+      --sky: #5BC0EB;
+      --sky-ink: #075E82;
+      --sky-tint: #E6F5FC;
+      --yellow: #FFC93C;
+      --yellow-tint: #FFF3C4;
+      --ink: #201833;
+      --muted: #574F6B;
+      --line: #E2DAF0;
+      --page: #F7F4FB;
+      --white: #FFFFFF;
+      --radius: 12px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+    [hidden] { display: none !important; }
+
+    html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      background: var(--page);
+      color: var(--ink);
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      font-size: 16px;
+      line-height: 1.5;
+      overflow-wrap: break-word;
+    }
+
+    .wrap {
+      width: 100%;
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 0 16px;
+    }
+
+    /* Header: compact brand bar */
+    .site-header {
+      background: var(--purple);
+      border-bottom: 4px solid var(--sky);
+      color: var(--white);
+    }
+    .header-inner {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 6px 14px;
+      min-height: 56px;
+      padding-top: 8px;
+      padding-bottom: 8px;
+    }
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--white);
+      text-decoration: none;
+      font-family: Georgia, "Iowan Old Style", "Times New Roman", serif;
+      font-size: 1.25rem;
+      font-weight: 700;
+    }
+    .brand-mark {
+      display: inline-grid;
+      place-items: center;
+      width: 30px;
+      height: 30px;
+      border-radius: 8px;
+      background: var(--yellow);
+      color: var(--purple-deep);
+      font-size: 1.05rem;
+    }
+    .site-title {
+      margin: 0;
+      padding-left: 14px;
+      border-left: 1px solid rgba(255, 255, 255, 0.4);
+      color: #EDE6F8;
+      font-size: 0.95rem;
+      font-weight: 500;
+    }
+
+    main { flex: 1; padding-top: 18px; padding-bottom: 28px; }
+
+    /* Welcome and recording notice */
+    .welcome {
+      background: var(--white);
+      border: 1px solid var(--line);
+      border-left: 6px solid var(--yellow);
+      border-radius: var(--radius);
+      padding: 16px 18px;
+    }
+    .welcome-lead {
+      margin: 0;
+      font-size: 1.05rem;
+      font-weight: 600;
+    }
+    .recording {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 12px;
+      padding: 12px 14px;
+      border-radius: 10px;
+      background: var(--sky-tint);
+    }
+    .recording p {
+      margin: 0;
+      font-size: 0.95rem;
+    }
+    .badge {
+      display: inline-block;
+      align-self: flex-start;
+      padding: 5px 12px;
+      border-radius: 999px;
+      background: var(--yellow);
+      color: var(--purple-deep);
+      font-size: 0.9rem;
+      font-weight: 700;
+    }
+    #recording-status {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 10px;
+    }
+    #recording-status > div { align-self: stretch; }
+    .ready-heading {
+      margin: 4px 0 0;
+      font-weight: 700;
+      color: var(--purple-deep);
+    }
+    .ready-row {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      padding: 8px 0;
+      border-top: 1px solid rgba(7, 94, 130, 0.18);
+    }
+    .ready-title { margin: 0; font-weight: 600; }
+
+    /* Lesson section */
+    .section-head { margin: 22px 0 10px; }
+    h2 {
+      margin: 0;
+      color: var(--purple-deep);
+      font-family: Georgia, "Iowan Old Style", "Times New Roman", serif;
+      font-size: 1.3rem;
+      line-height: 1.25;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      gap: 12px;
+    }
+    @media (min-width: 600px) {
+      .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+    @media (min-width: 960px) {
+      .grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    }
+
+    .card {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      min-width: 0;
+      padding: 14px 16px 16px;
+      border: 1px solid var(--line);
+      border-top: 4px solid var(--purple);
+      border-radius: var(--radius);
+      background: var(--white);
+    }
+    .card-subject {
+      margin: 0;
+      color: var(--sky-ink);
+      font-size: 0.82rem;
+      font-weight: 700;
+    }
+    .card-title {
+      margin: 0;
+      color: var(--purple-deep);
+      font-family: Georgia, "Iowan Old Style", "Times New Roman", serif;
+      font-size: 1.02rem;
+      font-weight: 700;
+      line-height: 1.3;
+    }
+    .card-desc {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    .version {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 6px;
+      margin-top: 4px;
+      padding-top: 10px;
+      border-top: 1px solid var(--line);
+    }
+    .version-label {
+      margin: 0;
+      font-size: 0.92rem;
+      font-weight: 700;
+    }
+    .meta {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.88rem;
+    }
+    .chip {
+      display: inline-block;
+      padding: 3px 9px;
+      border-radius: 6px;
+      background: #EEE8F9;
+      color: #3B1F66;
+      font-size: 0.8rem;
+      font-weight: 650;
+    }
+    .chip-with { background: var(--sky-tint); color: var(--sky-ink); }
+    .chip-selected { background: var(--yellow-tint); color: #5A4300; }
+    .chip-unstated { background: #F0EEF3; color: var(--muted); }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      align-self: stretch;
+      min-height: 44px;
+      max-width: 100%;
+      margin-top: 2px;
+      padding: 10px 14px;
+      border-radius: 8px;
+      background: var(--purple);
+      color: var(--white);
+      font-size: 0.95rem;
+      font-weight: 650;
+      line-height: 1.25;
+      text-align: center;
+      text-decoration: none;
+    }
+    .btn:hover { background: var(--purple-hover); }
+    .btn svg { flex: none; width: 18px; height: 18px; }
+    .btn-watch { background: var(--sky-ink); align-self: flex-start; }
+    .btn-watch:hover { background: #0A7299; }
+
+    a:focus-visible,
+    .btn:focus-visible {
+      outline: 3px solid var(--sky-ink);
+      outline-offset: 2px;
+    }
+
+    .status-msg {
+      margin: 14px 0 0;
+      padding: 12px 14px;
+      border-radius: 10px;
+      background: var(--white);
+      border: 1px solid var(--line);
+      color: var(--muted);
+    }
+
+    .site-footer {
+      border-top: 1px solid var(--line);
+      background: var(--white);
+      color: var(--muted);
+      font-size: 0.88rem;
+    }
+    .site-footer .wrap { padding-top: 14px; padding-bottom: 14px; }
+
+    @media (prefers-reduced-motion: reduce) {
+      * { transition: none !important; animation: none !important; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="wrap header-inner">
+      <a class="brand" href="./"><span class="brand-mark" aria-hidden="true">R</span>Rosoen</a>
+      <h1 class="site-title">Student resources</h1>
+    </div>
+  </header>
+
+  <main class="wrap">
+
+    <section class="welcome" aria-label="Welcome">
+      <p class="welcome-lead">Keep practising and prepare for your exam next week! Download your lesson slides below and review them before our next session.</p>
+
+      <div class="recording" id="recording">
+        <p id="recording-notice">The recording will be available Thursday after our Zoom session. Please check back here after the session.</p>
+        <div id="recording-status"><span class="badge">Recording coming Thursday</span></div>
+      </div>
+    </section>
+
+    <section aria-labelledby="slides-heading">
+      <div class="section-head">
+        <h2 id="slides-heading">Lesson slides</h2>
+      </div>
+      <div class="grid" id="lesson-grid"></div>
+      <p class="status-msg" id="lesson-status" hidden></p>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">Rosoen student resources</div>
+  </footer>
+
+  <noscript>
+    <p class="wrap">This page needs JavaScript to show the lesson list.</p>
+  </noscript>
+
+  <script id="resource-config">
+    /* ==========================================================
+       RESOURCE CONFIGURATION
+       Edit this block to add recordings or PPTX files.
+       Keep the quotation marks, commas, and brackets exactly as they are.
+
+       Recordings
+         status: "pending" shows the pendingLabel message.
+         status: "available" shows a Watch button, but only when url is an https:// link.
+
+       Lesson versions
+         file: path to the PPTX, for example downloads/Example_without_notes.pptx
+         speakerNotes: "without", "with", or "selected"
+         available: false hides a version without deleting it
+         label: optional name, shown when a lesson has more than one version
+       ========================================================== */
+    window.ROSOEN_RESOURCES = {
+          "recordings": [
+                {
+                      "title": "Zoom session recording",
+                      "status": "pending",
+                      "url": "",
+                      "pendingLabel": "Recording coming Thursday"
+                }
+          ],
+          "lessons": [
+                {
+                      "title": "GED Mathematics: Foundations",
+                      "subject": "Number sense and early algebra",
+                      "description": "Whole numbers, fractions, decimals, percents, ratios, and first steps in algebra.",
+                      "versions": [
+                            {
+                                  "file": "downloads/GED_Mathematics_Foundations_without_notes.pptx",
+                                  "slides": 25,
+                                  "size": "51 KB",
+                                  "speakerNotes": "without",
+                                  "available": true
+                            }
+                      ]
+                },
+                {
+                      "title": "GED Math Essentials",
+                      "subject": "Core GED mathematics",
+                      "description": "The core GED topics, with more steps, common mistakes, and extra examples.",
+                      "versions": [
+                            {
+                                  "label": "Expanded details",
+                                  "file": "downloads/GED_Math_Essentials_Expanded_without_notes.pptx",
+                                  "slides": 20,
+                                  "size": "69 KB",
+                                  "speakerNotes": "without",
+                                  "available": true
+                            },
+                            {
+                                  "label": "Zoom edition",
+                                  "file": "downloads/GED_Math_Essentials_Zoom_without_notes.pptx",
+                                  "slides": 26,
+                                  "size": "135 KB",
+                                  "speakerNotes": "without",
+                                  "available": true
+                            }
+                      ]
+                },
+                {
+                      "title": "Algebraic Problem Solving: Syllabus Gap Lessons",
+                      "subject": "Algebra",
+                      "description": "Lessons for algebra indicators A.1 to A.7, from expressions to lines.",
+                      "versions": [
+                            {
+                                  "file": "downloads/GED_Math_Algebra_without_notes.pptx",
+                                  "slides": 20,
+                                  "size": "51 KB",
+                                  "speakerNotes": "without",
+                                  "available": true
+                            }
+                      ]
+                },
+                {
+                      "title": "Quantitative Problem Solving: Syllabus Gap Lessons",
+                      "subject": "Quantitative reasoning",
+                      "description": "Lessons for quantitative indicators Q.2 to Q.8, with worked examples and a final check.",
+                      "versions": [
+                            {
+                                  "file": "downloads/GED_Math_Quantitative_without_notes.pptx",
+                                  "slides": 20,
+                                  "size": "63 KB",
+                                  "speakerNotes": "without",
+                                  "available": true
+                            }
+                      ]
+                },
+                {
+                      "title": "GED Mathematics: Applications",
+                      "subject": "Graphs, geometry, and statistics",
+                      "description": "Coordinate planes, functions, geometry, and statistics, ending with a mixed practice exam.",
+                      "versions": [
+                            {
+                                  "file": "downloads/GED_Mathematics_Applications_without_notes.pptx",
+                                  "slides": 24,
+                                  "size": "51 KB",
+                                  "speakerNotes": "without",
+                                  "available": true
+                            }
+                      ]
+                },
+                {
+                      "title": "Data Lab: Sample Data Sets Beyond the Syllabus",
+                      "subject": "Data, graphs, and algebra",
+                      "description": "Five invented data sets with tables, graphs, and questions to work through.",
+                      "versions": [
+                            {
+                                  "file": "downloads/GED_Math_Data_Lab_without_notes.pptx",
+                                  "slides": 7,
+                                  "size": "51 KB",
+                                  "speakerNotes": "without",
+                                  "available": true
+                            }
+                      ]
+                }
+          ]
+    };
+  </script>
+  <script>
+    (function () {
+      'use strict';
+
+      var EMPTY_MESSAGE = 'No lesson slides are available right now. Check back soon.';
+      var CONFIG_ERROR = 'The lesson list could not be read. Check the RESOURCE CONFIGURATION block in index.html for a missing comma, quotation mark, or bracket.';
+      var DEFAULT_PENDING = 'Recording coming Thursday';
+
+      var NOTE_LABELS = {
+        without:  { chip: 'Without speaker notes',              button: 'Download without speaker notes',   chipClass: '' },
+        'with':   { chip: 'With speaker notes',                 button: 'Download with speaker notes',      chipClass: 'chip-with' },
+        selected: { chip: 'Speaker notes on selected slides',   button: 'Download with some speaker notes', chipClass: 'chip-selected' }
+      };
+      var UNSTATED = { chip: 'Speaker notes not stated', button: 'Download PPTX', chipClass: 'chip-unstated' };
+
+      var DOWNLOAD_ICON = '<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>';
+
+      function el(tag, className, text) {
+        var node = document.createElement(tag);
+        if (className) node.className = className;
+        if (text !== undefined && text !== null) node.textContent = text;
+        return node;
+      }
+
+      function formatSize(bytes) {
+        if (!(bytes > 0)) return '';
+        if (bytes < 1024 * 1024) return Math.max(1, Math.round(bytes / 1024)) + ' KB';
+        return (bytes / (1024 * 1024)).toFixed(1) + ' MB';
+      }
+
+      function metaText(slides, size) {
+        var parts = ['PPTX file'];
+        if (slides) parts.push(slides + (slides === 1 ? ' slide' : ' slides'));
+        if (size) parts.push(size);
+        return parts.join(', ');
+      }
+
+      function isWebLink(url) {
+        return typeof url === 'string' && /^https:\/\//i.test(url);
+      }
+
+      function showStatus(text) {
+        var box = document.getElementById('lesson-status');
+        box.textContent = text;
+        box.hidden = false;
+      }
+
+      function renderRecordings(items) {
+        var notice = document.getElementById('recording-notice');
+        var status = document.getElementById('recording-status');
+        var ready = items.filter(function (r) {
+          return r && r.status === 'available' && isWebLink(r.url);
+        });
+        var pending = items.length ? items.filter(function (r) {
+          return !(r && r.status === 'available' && isWebLink(r.url));
+        }) : [{}];
+
+        status.textContent = '';
+        pending.forEach(function (r) {
+          status.appendChild(el('span', 'badge', (r && r.pendingLabel) || DEFAULT_PENDING));
+        });
+        notice.hidden = pending.length === 0;
+
+        if (ready.length) {
+          var list = el('div', '');
+          list.appendChild(el('p', 'ready-heading', ready.length > 1 ? 'Recordings' : 'Recording'));
+          ready.forEach(function (r) {
+            var row = el('div', 'ready-row');
+            row.appendChild(el('p', 'ready-title', r.title || 'Session recording'));
+            var link = el('a', 'btn btn-watch', 'Watch recording');
+            link.href = r.url;
+            link.target = '_blank';
+            link.rel = 'noopener';
+            row.appendChild(link);
+            list.appendChild(row);
+          });
+          status.appendChild(list);
+        }
+      }
+
+      function buildLesson(lesson) {
+        var versions = (lesson.versions || []).filter(function (v) {
+          return v && v.file && v.available !== false;
+        });
+        if (!versions.length) return null;
+
+        var card = el('article', 'card');
+        card.appendChild(el('p', 'card-subject', lesson.subject || ''));
+        card.appendChild(el('h3', 'card-title', lesson.title || 'Untitled lesson'));
+        if (lesson.description) card.appendChild(el('p', 'card-desc', lesson.description));
+
+        var entries = [];
+        versions.forEach(function (v) {
+          var labels = NOTE_LABELS[v.speakerNotes] || UNSTATED;
+          var block = el('div', 'version');
+          if (versions.length > 1 && v.label) block.appendChild(el('p', 'version-label', v.label));
+
+          var meta = el('p', 'meta', metaText(v.slides, v.size));
+          block.appendChild(meta);
+          block.appendChild(el('span', 'chip ' + labels.chipClass, labels.chip));
+
+          var button = el('a', 'btn');
+          button.href = v.file;
+          button.setAttribute('download', '');
+          button.innerHTML = DOWNLOAD_ICON;
+          button.appendChild(el('span', '', labels.button));
+          block.appendChild(button);
+
+          card.appendChild(block);
+          entries.push({ block: block, meta: meta, file: v.file, slides: v.slides });
+        });
+
+        return { card: card, entries: entries };
+      }
+
+      // When the page is served (GitHub Pages or a local web server), confirm each file exists.
+      // Missing files are hidden so no broken buttons show, and the size comes from the server.
+      // A page opened straight from a folder skips this check and keeps every button as configured.
+      function checkFiles(lessons) {
+        if (window.location.protocol === 'file:') return Promise.resolve();
+
+        var checks = [];
+        lessons.forEach(function (lesson) {
+          lesson.entries.forEach(function (entry) {
+            checks.push(
+              fetch(entry.file, { method: 'HEAD', cache: 'no-cache' }).then(function (res) {
+                if (!res.ok) {
+                  entry.block.remove();
+                  return;
+                }
+                var length = parseInt(res.headers.get('content-length'), 10);
+                if (length > 0) {
+                  entry.meta.textContent = metaText(entry.slides, formatSize(length));
+                }
+              }, function () {
+                // Network check failed. Keep the button as configured.
+              })
+            );
+          });
+        });
+
+        return Promise.all(checks).then(function () {
+          lessons.forEach(function (lesson) {
+            if (!lesson.card.querySelector('.version')) lesson.card.remove();
+          });
+          if (!document.querySelector('#lesson-grid .card')) {
+            showStatus(EMPTY_MESSAGE);
+          }
+        });
+      }
+
+      function init() {
+        var data = window.ROSOEN_RESOURCES;
+        if (!data || typeof data !== 'object') {
+          showStatus(CONFIG_ERROR);
+          return;
+        }
+
+        var built;
+        try {
+          renderRecordings(Array.isArray(data.recordings) ? data.recordings : []);
+          built = (Array.isArray(data.lessons) ? data.lessons : [])
+            .map(buildLesson)
+            .filter(Boolean);
+          var grid = document.getElementById('lesson-grid');
+          built.forEach(function (item) { grid.appendChild(item.card); });
+        } catch (err) {
+          showStatus(CONFIG_ERROR);
+          if (window.console) console.error(err);
+          return;
+        }
+
+        if (!built.length) {
+          showStatus(EMPTY_MESSAGE);
+          return;
+        }
+        checkFiles(built);
+      }
+
+      init();
+    })();
+  </script>
+
+</body>
+</html>
